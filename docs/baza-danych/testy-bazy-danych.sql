@@ -1,0 +1,1 @@
+INSERT INTO Reservation VALUES (NULL, 1, 1, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
