@@ -27,14 +27,16 @@ services:
             - ./ui:/workspace
         working_dir: /workspace
         stdin_open: true
+        entrypoint: 'bash -c "npm install && npm run dev"'
         tty: true
 
     java:
-        image: openjdk:17.0.2
+        image: gradle:jdk17
         ports:
             - 8081:80
         volumes:
             - ./system:/workspace
         working_dir: /workspace
+        entrypoint: bash -c "./gradlew && ./gradlew bootRun & ./gradlew build --continuous"
         stdin_open: true
         tty: true

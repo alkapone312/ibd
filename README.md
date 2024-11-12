@@ -5,6 +5,36 @@
 > - Radosław Zimoch
 > - Jakub Ptaszkowski
 
+## Uruchomienie
+
+```bash
+docker compose up
+```
+
+### Dostępność aplikacji
+
+Frontend:
+```
+https://localhost:8080
+```
+
+Backend:
+```
+https://localhost:8081
+```
+
+### Wejście do kontenera
+
+Java:
+```bash
+./java.sh
+```
+
+Node:
+```bash
+./node.sh
+```
+
 ## Opis biznesowy
 
 Klient jest osobą korzystającą z usług hotelu. Klient w hotelu może rezerwować pokoje na określoną liczbę dni. 
