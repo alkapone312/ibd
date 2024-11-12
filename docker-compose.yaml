@@ -36,7 +36,9 @@ services:
             - 8081:80
         volumes:
             - ./system:/workspace
+            - ./.gradle-dependencies:/home/gradle/.gradle
         working_dir: /workspace
+        user: gradle
         entrypoint: bash -c "./gradlew && ./gradlew bootRun & ./gradlew build --continuous"
         stdin_open: true
         tty: true
