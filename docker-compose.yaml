@@ -1,6 +1,7 @@
 version: '3.3'
 services:
     mysql:
+        container_name: mysql
         image: mysql:8
         environment:
             MYSQL_ROOT_PASSWORD: '123'
@@ -12,6 +13,7 @@ services:
             - ./database:/var/lib/mysql
 
     phpmyadmin:
+        container_name: phpmyadmin
         image: phpmyadmin:5
         restart: always
         ports:
@@ -20,6 +22,7 @@ services:
             - PMA_ARBITRARY=1
 
     node:
+        container_name: front
         image: node:21.5.0-slim
         ports:
             - 8080:80
@@ -31,6 +34,7 @@ services:
         tty: true
 
     java:
+        container_name: backend
         image: gradle:jdk17
         ports:
             - 8081:80
