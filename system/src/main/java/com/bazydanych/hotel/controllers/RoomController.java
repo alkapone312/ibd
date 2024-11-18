@@ -34,7 +34,7 @@ public class RoomController {
 		return repo.getRoom(id);
 	}
 
-	@PostMapping("/room")
+	@PostMapping(value = "/room", produces = "application/json")
 	public Room insertRoom(
 		@RequestParam("roomSize") int roomSize,
 		@RequestParam("basePrice") double basePrice,
@@ -56,7 +56,7 @@ public class RoomController {
 		return repo.persist(room) ? room : null;
 	}
 
-	@PutMapping("/room/{roomId}")
+	@PutMapping(value = "/room/{roomId}", produces = "application/json")
 	public Room updateRoom(
 		@PathVariable("roomId") int id,
 		@RequestParam("roomSize") int roomSize,

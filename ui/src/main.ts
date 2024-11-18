@@ -2,16 +2,11 @@ import { createApp } from 'vue/dist/vue.esm-bundler'
 import { createRouter, createWebHistory } from 'vue-router'
 import './style.css'
 import App from './App.vue'
+import ApiFacade from './services/ApiFacade';
 
-const Home = {template: '<div>Home</div>'};
-const About = {template: '<div>About</div>'};
-const Profile = {template: '<div>Profile</div>'};
+import routes from './routes/routes';
 
-const routes = [
-    { path: '/', component: Home },
-    { path: '/about', component: About },
-    { path: '/profile', component: Profile },
-]
+console.log(routes)
   
 // 3. Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
@@ -24,4 +19,5 @@ const router = createRouter({
 
 const app = createApp(App);
 app.use(router);
-app.mount('#app')
+app.provide('login', new ApiFacade('http://localhost:8081'))
+app.mount('#app');

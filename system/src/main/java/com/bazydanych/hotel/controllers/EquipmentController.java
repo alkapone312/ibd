@@ -24,14 +24,14 @@ public class EquipmentController {
 		return repo.getEquipment(id);
 	}
 
-	@PostMapping("/equipment")
+	@PostMapping(value = "/equipment", produces = "application/json")
 	public Equipment insertEquipment(@RequestParam("name") String name) {
 		Equipment equipment = new Equipment(0, name);
 
 		return repo.persist(equipment) ? equipment : null;
 	}
 
-	@PutMapping("/equipment/{equipmentId}")
+	@PutMapping(value = "/equipment/{equipmentId}", produces = "application/json")
 	public Equipment updateEquipment(
 		@PathVariable("equipmentId") int id,
 		@RequestParam("name") String name

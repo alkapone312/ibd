@@ -19,7 +19,7 @@ public class LoginService {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return "Unable to login";
+        return null;
     }
 
     public boolean register(String login, String password) {

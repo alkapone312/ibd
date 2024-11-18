@@ -29,7 +29,7 @@ public class ReservationController {
 		return repo.getReservation(id);
 	}
 
-	@PostMapping("/reservation")
+	@PostMapping(value = "/reservation", produces = "application/json")
 	public Reservation insertReservation(
 		@RequestParam("client_id") int clientId,
 		@RequestParam("room_id") int roomId,
@@ -47,7 +47,7 @@ public class ReservationController {
 		return repo.persist(reservation) ? reservation : null;
 	}
 
-	@PutMapping("/reservation/{reservationId}")
+	@PutMapping(value = "/reservation/{reservationId}", produces = "application/json")
 	public Reservation updateReservation(
 		@PathVariable("reservationId") int id,
 		@PathVariable("client_id") int clientId,
