@@ -8,6 +8,7 @@ public class Client {
     private String password;
     private boolean verified;
     private boolean disabled;
+    private String privilege = "CLIENT";
 
     public Client(
         int id,
@@ -58,5 +59,13 @@ public class Client {
 
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
+    }
+
+    public String getPrivilege() {
+        return privilege;
+    }
+
+    public void setPrivilege(String privilege) {
+        this.privilege = privilege;
     }
 }

@@ -18,6 +18,8 @@ const router = createRouter({
 })
 
 const app = createApp(App);
+const apiFacade = new ApiFacade('http://localhost:8081');
 app.use(router);
-app.provide('login', new ApiFacade('http://localhost:8081'))
+app.provide('login', apiFacade)
+app.provide('roomManager', apiFacade)
 app.mount('#app');

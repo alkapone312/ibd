@@ -1,0 +1,3 @@
+<template>
+    Zarządzanie zniżkami
+</template>

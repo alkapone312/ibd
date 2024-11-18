@@ -4,7 +4,8 @@
             :class="{
                 'btn': true, 
                 'btn-filled': props.type == 'filled',
-                'btn-text': props.type == 'text'
+                'btn-text': props.type == 'text',
+                'btn-plain': props.type == 'plain'
             }">
             <slot></slot>
         </RouterLink>
@@ -26,7 +27,19 @@
     color: #1C94AE;
     border-radius: 5px;
     transition: all 0.5s ease;
-    box-shadow: -10px 5px 20px -15px;
+    box-shadow: -10px 5px 20px -15px black;
+}
+
+.btn:hover {
+    box-shadow: -10px 5px 20px -5px black;
+}
+
+.btn-plain {
+    box-shadow: unset;
+}
+
+.btn-plain:hover {
+    box-shadow: unset;
 }
 
 .btn-filled {

@@ -4,5 +4,5 @@ export default interface LoginInterface {
     register(login: string, password: string): Promise<void>;
     logout(): void;
     onLoginChange(callback: (isLogged: boolean) => void): void;
-
+    hasPrivilege(privilege: string): boolean;
 }

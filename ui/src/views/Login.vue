@@ -10,7 +10,7 @@
             <HotelInput 
                 label="Hasło"
                 name="password" 
-                type="text" 
+                type="password" 
                 v-model="password"
             ></HotelInput>
             <HotelButton type="text">

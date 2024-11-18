@@ -13,8 +13,11 @@ public class LoginService {
     public String login(String login, String password) {
         try {
             Client client = repository.getClient(login);
+            if(client.getEmail().equals("admin")) {
+                client.setPrivilege("ADMIN");
+            }
             if(client.getPassword().equals(MessegeDigest.md5(password))) {
-                return client.getId() + ":" + client.getPassword();
+                return client.getId() + ":" + client.getPassword() + ":" + client.getPrivilege();
             }
         } catch (Exception e) {
             System.out.println(e);

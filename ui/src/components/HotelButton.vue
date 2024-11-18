@@ -22,7 +22,7 @@ const props = defineProps<{
 
 </script>
 
-<style>
+<style scoped>
     .btn {
         font-size: 32px;
         font-weight: 400;
@@ -30,7 +30,11 @@ const props = defineProps<{
         color: #1C94AE;
         border-radius: 5px;
         transition: all 0.5s ease;
-        box-shadow: -10px 5px 20px -15px;
+        box-shadow: -10px 5px 20px -15px black;
+    }
+
+    .btn:hover {
+        box-shadow: -10px 5px 20px -5px black;
     }
 
     .btn-filled {

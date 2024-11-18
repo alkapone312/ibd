@@ -1,40 +1,44 @@
 <template>
 	<nav>
 		<HotelH2>Hotel.com</HotelH2>
-
 		<HotelLink 
-			type="filled" to="/"
+			type="filled" 
+			to="/manageHotel" 
+			v-if="isLogged && apiFacade.hasPrivilege('ADMIN')"
+			>Zarządzaj hotelem</HotelLink>
+		<HotelLink
+			type="filled" 
+			to="/"
 			>Strona główna</HotelLink>
 		<HotelLink 
 			type="filled" 
-			to="/oferta" 
-			v-if="apiFacade.isLogged()"
+			to="/offer" 
+			v-if="isLogged"
 			>Oferta</HotelLink>
 		<HotelLink 
 			type="filled" 
-			to="/rezerwacje" 
-			v-if="apiFacade.isLogged()"
+			to="/reservations" 
+			v-if="isLogged"
 			>Moje rezerwacje</HotelLink>
 		<HotelButton 
 			type="filled" 
-			v-if="apiFacade.isLogged()" 
+			v-if="isLogged" 
 			@click="() => {apiFacade.logout()}"
 			>Wyloguj</HotelButton>
 		<HotelLink 
 			type="filled" 
 			to="/login" 
-			v-if="!apiFacade.isLogged()"
+			v-if="!isLogged"
 			>Zaloguj</HotelLink>
 		<HotelLink 
 			type="filled" 
 			to="/register" 
-			v-if="!apiFacade.isLogged()"
+			v-if="!isLogged"
 			>Zarejestruj</HotelLink>
 	</nav>
 	<main>
 		<RouterView></RouterView>
 	</main>
-	<div style="display: none;">{{ isLogged }}</div>
 </template>
 
 <script setup lang="ts">
@@ -45,7 +49,6 @@ import HotelH2 from './components/HotelH2.vue';
 import LoginInterface from './interfaces/LoginInterface';
 
 const apiFacade = inject('login') as LoginInterface
-
 
 let isLogged = ref(apiFacade.isLogged());
 apiFacade.onLoginChange((isLoggedNew) => {

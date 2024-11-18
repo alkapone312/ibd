@@ -2,8 +2,8 @@
     <div id="loginForm">
         <form @submit.prevent="onSubmit">
             <HotelInput label="Email" name="login" type="text" v-model="login"></HotelInput>
-            <HotelInput label="Hasło" name="password" type="text" v-model="password"></HotelInput>
-            <HotelInput label="Powtórz hasło" name="repeatPassword" type="text" v-model="repeatPassword"></HotelInput>
+            <HotelInput label="Hasło" name="password" type="password" v-model="password"></HotelInput>
+            <HotelInput label="Powtórz hasło" name="repeatPassword" type="password" v-model="repeatPassword"></HotelInput>
             
             <HotelButton type="text">
                 Zarejestruj się
@@ -33,9 +33,9 @@ let repeatPassword = '';
 const apiFacade = inject('login') as LoginInterface;
 
 const onSubmit = () => {
-    console.log(login);
-    console.log(password);
-    console.log(repeatPassword);
+    if(password == repeatPassword) {
+        apiFacade.register(login, password)
+    }
 }
 
 </script>

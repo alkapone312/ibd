@@ -15,7 +15,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         token = token == null ? "" : token;
         String[] splittedToken = token.split(":");
-        if(splittedToken.length == 2) {
+        if(splittedToken.length == 3) {
             Client client = new ClientRepository(new DatabaseQuery(new Connector()))
                 .getClient(Integer.parseInt(splittedToken[0]));
 
