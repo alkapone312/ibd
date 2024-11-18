@@ -11,18 +11,26 @@ public class Room {
 
     private int roomNumber;
 
+    private String name;
+
+    private String description;
+
     public Room(
         int id,
         int roomSize,
         double basePrice,
         int capacity,
-        int roomNumber
+        int roomNumber,
+        String name,
+        String description
     ) {
         this.id = id;
         this.roomSize = roomSize;
         this.basePrice = basePrice;
         this.capacity = capacity;
         this.roomNumber = roomNumber;
+        this.name = name;
+        this.description = description;
     }
 
     public int getId() {
@@ -59,5 +67,21 @@ public class Room {
 
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

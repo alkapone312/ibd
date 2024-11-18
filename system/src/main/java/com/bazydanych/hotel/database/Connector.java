@@ -1,4 +1,4 @@
-package main.java.com.bazydanych.database;
+package main.java.com.bazydanych.hotel.database;
 
 import java.sql.*;
 

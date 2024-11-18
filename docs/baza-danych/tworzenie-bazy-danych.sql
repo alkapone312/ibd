@@ -7,18 +7,18 @@ USE hotel;
 -- CREATE TABLES
 
 CREATE TABLE AdditionalEquipmentPricingIncrease (
-    additional_equipment_id INT PRIMARY KEY,
+    additional_equipment_id INT PRIMARY KEY AUTO_INCREMENT,
     increase FLOAT NOT NULL,
     type VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE AdditionalEquipment(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Client (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     verified BOOLEAN NOT NULL,
@@ -32,16 +32,18 @@ CREATE TABLE EquipmentPricingIncrease (
 );
 
 CREATE TABLE Equipment(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Room(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     roomSize INT NOT NULL,
-    base_price FLOAT NOT NULL,
+    basePrice FLOAT NOT NULL,
     capacity INT NOT NULL,
-    roomNumber INT NOT NULL
+    roomNumber INT NOT NULL,
+    name VARCHAR(255) DEFAULT '',
+    description TEXT
 );
 
 CREATE TABLE ReservationPricing(
@@ -50,7 +52,7 @@ CREATE TABLE ReservationPricing(
 );
 
 CREATE TABLE Discount(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     decrease FLOAT NOT NULL,
     discountType VARCHAR(255) NOT NULL
 );
@@ -63,7 +65,7 @@ CREATE TABLE RoomDiscount(
 );
 
 CREATE TABLE RoomBlockade(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     room_id INT NOT NULL,
     date_from DATE NOT NULL,
     date_to DATE,
@@ -71,7 +73,7 @@ CREATE TABLE RoomBlockade(
 );
 
 CREATE TABLE Reservation(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     client_id INT NOT NULL,
     room_id INT NOT NULL,
     checkin_date DATE NOT NULL,

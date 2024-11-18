@@ -1,4 +1,4 @@
-package main.java.com.bazydanych.database;
+package main.java.com.bazydanych.hotel.database;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,12 +23,13 @@ public class DatabaseQuery {
         }
     }
 
-    public void query(String query) {
+    public boolean query(String query) {
         try {
             Statement s = connection.createStatement();
-            s.execute(query);
+            return s.execute(query);
         } catch (SQLException e) {
             System.out.println(e + "\n\n Failure for query " + query);
+            return false;
         }
     }
 }
