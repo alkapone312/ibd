@@ -1,5 +1,7 @@
 package main.java.com.bazydanych.hotel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Client {
     private int id;
     private String email;
@@ -33,6 +35,7 @@ public class Client {
         this.email = email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

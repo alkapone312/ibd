@@ -57,7 +57,7 @@ public class RoomController {
 		@RequestParam("description") String description
 	) {
 		Room room = new Room(
-			0,
+			id,
 			roomSize,
 			basePrice,
 			capacity,

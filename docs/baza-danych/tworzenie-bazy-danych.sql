@@ -67,8 +67,8 @@ CREATE TABLE RoomDiscount(
 CREATE TABLE RoomBlockade(
     id INT PRIMARY KEY AUTO_INCREMENT,
     room_id INT NOT NULL,
-    date_from DATE NOT NULL,
-    date_to DATE,
+    date_from TIMESTAMP NOT NULL,
+    date_to TIMESTAMP,
     FOREIGN KEY (room_id) REFERENCES Room(id)
 );
 
@@ -76,8 +76,8 @@ CREATE TABLE Reservation(
     id INT PRIMARY KEY AUTO_INCREMENT,
     client_id INT NOT NULL,
     room_id INT NOT NULL,
-    checkin_date DATE NOT NULL,
-    checkout_date DATE NOT NULL,
+    checkin_date TIMESTAMP NOT NULL,
+    checkout_date TIMESTAMP NOT NULL,
     FOREIGN KEY (client_id) REFERENCES Client(id),
     FOREIGN KEY (room_id) REFERENCES Room(id)
 );
