@@ -27,6 +27,18 @@ public class ClientRepository {
         }
     }
 
+    public Client getClient(String login) {
+        try {
+            ResultSet r = query.select("SELECT * FROM Client WHERE email = \"" + login + "\";");
+            r.next();
+
+            return mapToClient(r);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
     public List<Client> getClients() {
         try {
             ResultSet r = query.select("SELECT * FROM Client");

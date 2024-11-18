@@ -4,8 +4,10 @@ import main.java.com.bazydanych.hotel.database.Connector;
 import main.java.com.bazydanych.hotel.database.DatabaseQuery;
 import main.java.com.bazydanych.hotel.model.Room;
 import main.java.com.bazydanych.hotel.repository.RoomRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,6 +19,14 @@ public class RoomController {
 	@GetMapping("/rooms")
 	public List<Room> getRooms() {
 		return repo.getRooms();
+	}
+
+	@GetMapping("/rooms/{from}/{to}")
+	public List<Room> getRooms(
+		@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date from,
+		@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date to
+	) {
+		return repo.getAvailableRooms(from, to);
 	}
 
 	@GetMapping("/room/{roomId}")

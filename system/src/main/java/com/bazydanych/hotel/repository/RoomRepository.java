@@ -6,6 +6,7 @@ import main.java.com.bazydanych.hotel.model.Room;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RoomRepository {
@@ -30,6 +31,33 @@ public class RoomRepository {
     public List<Room> getRooms() {
         try {
             ResultSet r = query.select("SELECT * FROM Room");
+            List<Room> rooms = new ArrayList<>();
+            while(r.next()) {
+                rooms.add(mapToRoom(r));
+            }
+
+            return rooms;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public List<Room> getAvailableRooms(Date from, Date to) {
+        try {
+            System.out.println("SELECT * FROM Room WHERE id NOT IN " +
+                "(SELECT room_id  FROM `Reservation` " +
+                "WHERE (checkin_date >= " + from.getTime() +
+                " AND checkin_date <= " + to.getTime() + ")" +
+                " OR (checkout_date >= " + from.getTime() +
+                " AND checkout_date <= " + to.getTime() + "));");
+            ResultSet r = query.select(
+                "SELECT * FROM Room WHERE id NOT IN " +
+                    "(SELECT room_id  FROM `Reservation` " +
+                        "WHERE (checkin_date >= " + from.getTime() +
+                            " AND checkin_date <= " + to.getTime() + ")" +
+                            " OR (checkout_date >= " + from.getTime() +
+                            " AND checkout_date <= " + to.getTime() + "));");
             List<Room> rooms = new ArrayList<>();
             while(r.next()) {
                 rooms.add(mapToRoom(r));

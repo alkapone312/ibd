@@ -26,7 +26,8 @@ public class DatabaseQuery {
     public boolean query(String query) {
         try {
             Statement s = connection.createStatement();
-            return s.execute(query);
+            s.execute(query);
+            return true;
         } catch (SQLException e) {
             System.out.println(e + "\n\n Failure for query " + query);
             return false;
