@@ -6,7 +6,7 @@
 </script>
 
 <style scoped>
-    h2 {
+    h3 {
         font-size: 24px;
         color: #B7B7B7;
     }

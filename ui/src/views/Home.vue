@@ -39,7 +39,7 @@
     import HotelP from '../components/HotelP.vue';
 </script>
 
-<style>
+<style scoped>
     #homepage {
         width: 100%;
         display: flex;

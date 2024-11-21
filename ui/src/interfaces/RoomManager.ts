@@ -9,7 +9,8 @@ export type Room = {
 }
 
 export default interface RoomManager {
-    getRooms(): Room[]
-    getRoom(id: int): Room
-    saveRoom(room: Room): void
+    getRooms(): Promise<Room[]>
+    getRoom(id: number): Promise<Room>
+    saveRoom(room: Room): Promise<void>
+    updateRoom(room: Room): Promise<void>
 }

@@ -77,7 +77,7 @@ public class RoomRepository {
             room.getCapacity() + ", " +
             room.getRoomNumber() + ", \"" +
             room.getName() + "\", \"" +
-            room.getDescription() + "\", " +
+            room.getDescription() + "\" " +
             ")";
         if(room.getId() != 0) {
             queryString = "UPDATE Room SET " +

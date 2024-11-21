@@ -13,11 +13,10 @@
 		<HotelLink 
 			type="filled" 
 			to="/offer" 
-			v-if="isLogged"
 			>Oferta</HotelLink>
 		<HotelLink 
 			type="filled" 
-			to="/reservations" 
+			to="/myRents" 
 			v-if="isLogged"
 			>Moje rezerwacje</HotelLink>
 		<HotelButton 
@@ -54,7 +53,6 @@ let isLogged = ref(apiFacade.isLogged());
 apiFacade.onLoginChange((isLoggedNew) => {
 	isLogged.value = isLoggedNew
 })
-
 
 </script>
 

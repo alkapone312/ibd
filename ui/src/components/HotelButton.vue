@@ -31,6 +31,7 @@ const props = defineProps<{
         border-radius: 5px;
         transition: all 0.5s ease;
         box-shadow: -10px 5px 20px -15px black;
+        cursor: pointer;
     }
 
     .btn:hover {

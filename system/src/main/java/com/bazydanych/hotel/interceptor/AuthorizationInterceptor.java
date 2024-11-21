@@ -25,7 +25,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         }
 
         response.setStatus(HttpStatus.FORBIDDEN.value());
-        response.getWriter().write("{\"error\": \"Access forbidden. You are not authorized.\"}");
+        response.getWriter().write("{\"error\": \"Access forbidden. You are not authorized.\", \"code\": 403}");
 
         return false;
     }

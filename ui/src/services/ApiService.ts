@@ -9,8 +9,10 @@ export default class ApiService {
 
         var requestOptions = {
             method: params.getMethod(),
-            body: formdata
+            body: params.getMethod() !== 'GET' ? formdata : null
         };
+        
+        console.log(requestOptions)
 
         let response = await fetch(params.getBaseUrl() + params.getEndpoint(), requestOptions);
         let json = await response.json();

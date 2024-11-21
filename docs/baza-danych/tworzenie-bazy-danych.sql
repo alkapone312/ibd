@@ -83,6 +83,7 @@ CREATE TABLE Reservation(
 );
 
 CREATE TABLE EquipmentInRoom(
+    id INT PRIMARY KEY AUTO_INCREMENT,
     equipment_id INT NOT NULL,
     room_id INT NOT NULL,
     FOREIGN KEY (equipment_id) REFERENCES Equipment(id),
@@ -90,6 +91,7 @@ CREATE TABLE EquipmentInRoom(
 );
 
 CREATE TABLE AdditionalEquipmentForReservation(
+    id INT PRIMARY KEY AUTO_INCREMENT,
     additional_equipment_id INT NOT NULL,
     reservation_id INT NOT NULL,
     FOREIGN KEY (additional_equipment_id) REFERENCES AdditionalEquipment(id),

@@ -1,13 +1,26 @@
+import AdditionalEquipmentManager from "../interfaces/AdditionalEquipmentManager";
+import DiscountManager from "../interfaces/DiscountManager";
+import EquipmentManager from "../interfaces/EquipmentManager";
 import LoginInterface from "../interfaces/LoginInterface";
+import PricingIncreaseManager from "../interfaces/PricingIncreaseManager";
 import RoomManager from "../interfaces/RoomManager";
 import { Room } from "../interfaces/RoomManager"
 import ApiParamsFactory from "./ApiParamsFactory";
 import ApiService from "./ApiService";
+import { PricingIncrease } from "../interfaces/PricingIncreaseManager";
+import { Equipment } from "../interfaces/EquipmentManager";
+import { Discount } from "../interfaces/DiscountManager";
 
-export default class ApiFacade implements LoginInterface, RoomManager {
+export default class ApiFacade implements 
+LoginInterface, 
+RoomManager,
+EquipmentManager,
+AdditionalEquipmentManager,
+PricingIncreaseManager,
+DiscountManager {
     private apiService;
     private apiParamsFactory;
-    private loginCallback: (isLogged: boolean) => void = () => {};
+    private loginCallback: ((isLogged: boolean) => void)[] = [];
     
     constructor(apiBase: string) {
         this.apiService = new ApiService();
@@ -27,7 +40,7 @@ export default class ApiFacade implements LoginInterface, RoomManager {
     }
 
     public onLoginChange(callback: (isLogged: boolean) => void) {
-        this.loginCallback = callback;
+        this.loginCallback.push(callback);
     }
 
     public async login(login: string, password: string) {
@@ -36,12 +49,18 @@ export default class ApiFacade implements LoginInterface, RoomManager {
             throw new Error("Something went wrong!");
         }
         localStorage.setItem('authToken', object.token);
-        this.loginCallback(true);
+        this.apiParamsFactory.setAuthToken(object.token);
+        this.invokeCallback(true);
     }
 
     public logout(): void {
         localStorage.clear();
-        this.loginCallback(false);
+        this.apiParamsFactory.setAuthToken('');
+        this.invokeCallback(false);
+    }
+
+    private invokeCallback(isLogged: boolean) {
+        this.loginCallback.forEach(cb => cb(isLogged));
     }
 
     public async register(login: string, password: string) {
@@ -53,15 +72,91 @@ export default class ApiFacade implements LoginInterface, RoomManager {
     }
 
 
-    getRooms(): Room[] {
-        return [];
+    public async getRooms(): Promise<Room[]> {
+        return await this.apiService.request(
+            this.apiParamsFactory.getRooms()
+        );
     }
 
-    getRoom(id: int): Room {
-        return {} as Room;
+    public async getRoom(id: number): Promise<Room> {
+        return await this.apiService.request(
+            this.apiParamsFactory.getRoom(id)
+        );
     }
 
-    saveRoom(room: Room): void {
-        
+    public async saveRoom(room: Room): Promise<void> {
+        return await this.apiService.request(
+            this.apiParamsFactory.saveRoom(room)
+        )
+    }
+
+    public async updateRoom(room: Room): Promise<void> {
+        return await this.apiService.request(
+            this.apiParamsFactory.updateRoom(room)
+        )
+    }
+
+    public async getAdditionalEquipmentForRoom(id: number): Promise<Equipment[]> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+
+    public async getAdditionalPricingForAdditionalEquipment(id: number): Promise<PricingIncrease> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+
+    public async saveAdditionalEquipment(equipment: Equipment): Promise<void> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+
+    public async updateAdditionalEquipment(equipment: Equipment): Promise<void> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+
+    public async getDiscountForEquipment(id: number): Promise<Discount> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+
+    public async getDiscountForAdditionalEquipment(id: number): Promise<Discount> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+
+    public async saveDiscount(increase: Discount): Promise<void> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+    
+    public async updateDiscount(increase: Discount): Promise<void> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+
+    public async getEquipmentForRoom(id: number): Promise<Equipment[]> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+    
+    public async getAdditionalPricingForEquipment(id: number): Promise<PricingIncrease> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+    
+    public async saveEquipment(equipment: Equipment): Promise<void> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+    
+    public async updateEquipment(equipment: Equipment): Promise<void> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+
+    public async getPricingIncreaseForEquipment(id: number): Promise<PricingIncrease> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+    
+    public async getPricingIncreaseForAdditionalEquipment(id: number): Promise<PricingIncrease> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+    
+    public async savePricingIncrease(increase: PricingIncrease): Promise<void> {
+        throw new Error("NOT IMPLEMENTED")
+    }
+    
+    public async updatePricingIncrease(increase: PricingIncrease): Promise<void> {
+        throw new Error("NOT IMPLEMENTED")
     }
 }

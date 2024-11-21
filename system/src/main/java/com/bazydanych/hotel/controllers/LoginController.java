@@ -22,7 +22,7 @@ public class LoginController {
         @RequestParam("password") String password
     ) {
         String token = new LoginService(clientRepository).login(login, password);
-        return token == null ? "{\"error\": \"Unable to login!\"}" :"{\"token\": \"" + token + "\"}";
+        return token == null ? "{\"error\": \"Unable to login!\", \"code\": 400}" :"{\"token\": \"" + token + "\"}";
     }
 
     @PostMapping(value = "/register", produces = "application/json")
@@ -31,6 +31,6 @@ public class LoginController {
         @RequestParam("password") String password
     ) {
         return new LoginService(clientRepository).register(login, password) ?
-            "{\"status\": \"ok\"}" : "{\"error\": \"Unable to register!\"}";
+            "{\"status\": \"ok\"}" : "{\"error\": \"Unable to register!\", \"code\": 400}";
     }
 }
