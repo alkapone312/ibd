@@ -1,5 +1,6 @@
 import ApiParams from "./ApiParams";
 import { Room } from "../interfaces/RoomManager";
+import { Rent } from "../interfaces/ReservationManager";
 
 export default class ApiParamsFactory {
     private authToken: string = '';
@@ -57,11 +58,47 @@ export default class ApiParamsFactory {
         return this.authorize(params);
     }
 
-    public getAdditionalEquipmentForRoom() {
-
+    public getAdditionalEquipment(): ApiParams {
+        return this.authorize(new ApiParams(
+            this.baseUrl, '/api/additionalEquipments', 'GET'
+        ));
     }
 
+    public getAdditionalEquipmentForReservation(reservation_id: number): ApiParams {
+        return this.authorize(new ApiParams(
+            this.baseUrl, '/api/additionalEquipments/' + reservation_id, 'GET'
+        ));
+    }
 
+    public rentRoom(rent: Rent, price: number): ApiParams {
+        let params = new ApiParams(this.baseUrl, '/api/rent/' + rent.room_id, 'POST');
+        params.addBodyField("dateFrom", rent.checkin_date);
+        params.addBodyField("dateTo", rent.checkout_date);
+        params.addBodyField("price", String(price));
+
+        return this.authorize(params);
+    }
+
+    public cancelRent(rent: Rent): ApiParams {
+        let params = new ApiParams(this.baseUrl, '/api/reservation', 'DELETE');
+        params.addBodyField('reservationId', String(rent.id))
+
+        return this.authorize(params);
+    }
+
+    public getRents(): ApiParams {
+        return this.authorize(new ApiParams(this.baseUrl, '/api/reservations', 'GET'));
+    }
+
+    public getMyRents(): ApiParams {
+        return this.authorize(new ApiParams(this.baseUrl, '/api/myReservations', 'GET'));
+    }
+
+    public getPricingForAdditionalEquipment(id: number): ApiParams {
+        return this.authorize(new ApiParams(
+            this.baseUrl, '/api/additionalEquipment/pricingIncrease/' + id, 'GET'
+        ))
+    }
 
     public setAuthToken(token: string) {
         this.authToken = token;

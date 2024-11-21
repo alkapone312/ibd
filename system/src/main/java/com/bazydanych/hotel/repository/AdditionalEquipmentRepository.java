@@ -59,7 +59,7 @@ public class AdditionalEquipmentRepository {
 
     public PricingIncrease getPricingIncreaseForAdditionalEquipment(int id) {
         try {
-            ResultSet r = query.select("SELECT * FROM AdditionalEquipment");
+            ResultSet r = query.select("SELECT * FROM  AdditionalEquipmentPricingIncrease WHERE additional_equipment_id = " + id + ";");
             r.next();
 
             return mapToPricingIncrease(r);

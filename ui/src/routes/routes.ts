@@ -24,5 +24,5 @@ export default [
     {path: '/offer', component: Offer},
     {path: '/room/:id', component: OfferRoom},
     {path: '/rent/:id', component: RentRoom},
-    {path: '/myRents/:id', component: MyRents}
+    {path: '/myRents', component: MyRents}
 ] as RouteRecordRaw[]

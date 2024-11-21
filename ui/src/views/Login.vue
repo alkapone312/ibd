@@ -43,7 +43,6 @@ const apiFacade = inject('login') as LoginInterface
 
 const onSubmit = () => {
     apiFacade.login(login, password)
-    router.push({path: '/'})
 }
 
 </script>

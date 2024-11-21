@@ -23,8 +23,8 @@ public class RoomController {
 
 	@GetMapping("/rooms/{from}/{to}")
 	public List<Room> getRooms(
-		@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date from,
-		@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date to
+		@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+		@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date to
 	) {
 		return repo.getAvailableRooms(from, to);
 	}

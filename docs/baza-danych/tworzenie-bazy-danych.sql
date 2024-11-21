@@ -47,7 +47,7 @@ CREATE TABLE Room(
 );
 
 CREATE TABLE ReservationPricing(
-    reservation_id INT PRIMARY KEY,
+    reservation_id INT PRIMARY KEY AUTO_INCREMENT,
     price FLOAT NOT NULL
 );
 

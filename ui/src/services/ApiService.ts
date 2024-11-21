@@ -7,9 +7,16 @@ export default class ApiService {
             formdata.append(entry[0], entry[1]);
         })
 
+        var headers = new Headers();
+        Object.entries(params.getHeaders()).forEach((entry) => {
+            headers.append(entry[0], entry[1]);
+        })
+        headers.append('Access-Control-Allow-Origin', '*')
+
         var requestOptions = {
             method: params.getMethod(),
-            body: params.getMethod() !== 'GET' ? formdata : null
+            body: params.getMethod() !== 'GET' ? formdata : null,
+            headers
         };
         
         console.log(requestOptions)

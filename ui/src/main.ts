@@ -19,7 +19,17 @@ const router = createRouter({
 
 const app = createApp(App);
 const apiFacade = new ApiFacade('http://localhost:8081');
+apiFacade.onLoginChange((isLogged) => {
+    if(isLogged == false) {
+        router.push('/login');
+    }
+    if(isLogged == true) {
+        router.go(-1);
+    }
+})
 app.use(router);
 app.provide('login', apiFacade)
 app.provide('roomManager', apiFacade)
+app.provide('additionalEquipmentManager', apiFacade)
+app.provide('rentManager', apiFacade)
 app.mount('#app');

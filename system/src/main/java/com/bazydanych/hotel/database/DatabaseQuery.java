@@ -1,9 +1,6 @@
 package main.java.com.bazydanych.hotel.database;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseQuery {
     Connection connection;
@@ -31,6 +28,15 @@ public class DatabaseQuery {
         } catch (SQLException e) {
             System.out.println(e + "\n\n Failure for query " + query);
             return false;
+        }
+    }
+
+    public CallableStatement prepare(String query) {
+        try {
+            return connection.prepareCall(query);
+        } catch (SQLException e) {
+            System.out.println(e + "\n\n Failure for query " + query);
+            return null;
         }
     }
 }
