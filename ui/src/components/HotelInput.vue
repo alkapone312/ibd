@@ -1,7 +1,7 @@
 <template>
     <div class="inputGroup">
         <label class="label">{{ props.label }}</label>
-        <input :name="props.name" :type="props.type" v-model="model" class="input">
+        <input :step="props.step" :name="props.name" :type="props.type" v-model="model" class="input">
     </div>
 </template>
 
@@ -12,6 +12,7 @@ const props = defineProps<{
     type: string,
     name: string,
     label: string
+    step: string | null
 }>();
 
 const model = defineModel();

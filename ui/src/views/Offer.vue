@@ -1,8 +1,7 @@
 
-import { onMounted } from 'vue';
 <template>
     <div id="hotelContainer">
-    <HotelH1>Offer</HotelH1>
+    <HotelH1>Oferta</HotelH1>
     <div id="hotelOffer">
         <HotelLink v-for="room in rooms" :key="room.id" :to="'/room/' + room.id">
             <HotelRoomTile  :room="room"></HotelRoomTile>

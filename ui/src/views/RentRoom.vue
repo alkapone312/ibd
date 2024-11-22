@@ -27,6 +27,13 @@
                 v-model="additionalEquipmentCheckbox[eq.id]"
             ></HotelInput>
 
+            <div style="padding: 20px 0;" v-if="equipments.length !== 0">
+                Wyposażenie pokoju:
+                <ul>
+                    <li v-for="eq in equipments">{{ eq.name + ' +' + eq.increase + '%'}}</li>
+                </ul>
+            </div>
+
             <HotelH2>Cena: {{ price }}zł</HotelH2>
             <HotelButton type="text">Wynajmij</HotelButton>
         </form>
@@ -41,6 +48,7 @@
     import HotelButton from "../components/HotelButton.vue";
     import HotelH2 from "../components/HotelH2.vue";
     import AdditionalEquipmentManager from '../interfaces/AdditionalEquipmentManager';
+    import EquipmentManager from '../interfaces/EquipmentManager';
     import ReservationManager from '../interfaces/ReservationManager';
 
     
@@ -48,9 +56,11 @@
     const route = useRoute();
     const roomManager = inject('roomManager') as AdditionalEquipmentManager;
     const additionalEquipmentManager = inject('additionalEquipmentManager') as AdditionalEquipmentManager;
+    const equipmentManager = inject('equipmentManager') as EquipmentManager;
     const rentManager = inject('rentManager') as ReservationManager;
     let room = {};
     let additionalEquipment = ref([]);
+    let equipments = ref([]);
     let additionalEquipmentCheckbox = {};
     let price = ref(0);
     let rent: Rent = {
@@ -62,18 +72,27 @@
     };
     (async () => {
         room = await roomManager.getRoom(route.params.id);
-        price.value = room.basePrice;
-        rent.room_id = room.id;
-        let eq = await additionalEquipmentManager.getAdditionalEquipment();
-        let eq2 = {}
-        for(let i = 0 ; i < eq.length; i++) {
-            eq2[eq[i].id] = {...eq[i], ...(await additionalEquipmentManager.getPricingForAdditionalEquipment(eq[i].id))}
+        equipments.value = await equipmentManager.getEquipmentForRoom(room.id);
+        for(let i = 0 ; i < equipments.value.length; i++) {
+            equipments.value[i] = {
+                ...equipments.value[i], 
+                ...(await equipmentManager.getAdditionalPricingForEquipment(equipments.value[i].id))
+            }
+            equipments.value[i].increaseType = equipments.value[i].type;
         }
-        additionalEquipment.value = eq2;
-        console.log(eq2);
-        Object.values(eq2).forEach(element => {
+
+        rent.room_id = room.id;
+        let aeq = await additionalEquipmentManager.getAdditionalEquipment();
+        let aeq2 = {}
+        for(let i = 0 ; i < aeq.length; i++) {
+            aeq2[aeq[i].id] = {...aeq[i], ...(await additionalEquipmentManager.getPricingForAdditionalEquipment(aeq[i].id))}
+        }
+        additionalEquipment.value = aeq2;
+        Object.values(aeq2).forEach(element => {
             additionalEquipmentCheckbox[element.id] = false;
         });
+
+        recalculatePrice()
     })()
 
     const onSubmit = () => {
@@ -84,6 +103,9 @@
 
     const recalculatePrice = () => {
         price.value = room.basePrice * Math.max(calculateDaysDifference(rent.checkin_date, rent.checkout_date), 1);
+        equipments.value.forEach((eq) =>{
+            price.value += Math.ceil(price.value * eq.increase / 100);
+        });
         Object.entries(additionalEquipmentCheckbox).forEach((checkbox) => {
             if(checkbox[1] == true) {
                 price.value += Math.ceil(price.value * additionalEquipment.value[checkbox[0]].increase / 100);

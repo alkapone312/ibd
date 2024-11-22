@@ -4,7 +4,7 @@
         <HotelLink type="plain" to="/manageRooms"><ManagementTile>Zarządzaj pokojami</ManagementTile></HotelLink>
         <HotelLink type="plain" to="/manageEquipments"><ManagementTile>Zarządzaj ewkipunkiem</ManagementTile></HotelLink>
         <HotelLink type="plain" to="/manageAdditionalEquipments"><ManagementTile>Zarządzaj dodatkowym ekwipunkiem</ManagementTile></HotelLink>
-        <HotelLink type="plain" to="/manageDiscounts"><ManagementTile>Zarządzaj zniżkami</ManagementTile></HotelLink>
+        <HotelLink type="plain" to="/manageEquipmentInRoom"><ManagementTile>Zarządzaj ekwipunkiem w pokojach</ManagementTile></HotelLink>
     </div>
 </template>
 

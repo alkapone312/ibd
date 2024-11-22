@@ -6,23 +6,15 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nazwa</th>
-                    <th scope="col">Opis</th>
-                    <th scope="col">Powierzchnia</th>
-                    <th scope="col">Liczba osób</th>
                     <th scope="col">Numer pokoju</th>
-                    <th scope="col">Cena bazowa</th>
-                    <th scope="col">Edytuj</th>
+                    <th scope="col">Wyposażenie</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="room in rooms" scope="row">
                     <th>{{ room.id }}</th>
                     <td>{{ room.name }}</td>
-                    <td>{{ room.description }}</td>
-                    <td>{{ room.roomSize }}</td>
-                    <td>{{ room.capacity }}</td>
                     <td>{{ room.roomNumber }}</td>
-                    <td>{{ room.basePrice }}</td>
                     <td><HotelLink type="text" :to="'/manageRooms/edit/' + room.id">Edytuj</HotelLink></td>
                 </tr>
             </tbody>

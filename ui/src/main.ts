@@ -31,5 +31,6 @@ app.use(router);
 app.provide('login', apiFacade)
 app.provide('roomManager', apiFacade)
 app.provide('additionalEquipmentManager', apiFacade)
+app.provide('equipmentManager', apiFacade)
 app.provide('rentManager', apiFacade)
 app.mount('#app');

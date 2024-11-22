@@ -29,21 +29,22 @@
 
 <script setup lang="ts">
     import {ref, inject} from 'vue';
+    import {useRouter} from 'vue-router';
     import HotelButton from '../components/HotelButton.vue';
 
+    const router = useRouter();
     const rentManager = inject('rentManager') as ReservationManager;
     const roomManager = inject('roomManager') as ReservationManager;
     let reservations = ref([]);
 
     const a = async () => {
         reservations.value = await rentManager.getMyRents();
-        console.log(reservations.value)
     }
     a();
 
     const cancelReservation = async (rent) => {
-        console.log(rent)
-        rentManager.cancelRent(rent)
+        await rentManager.cancelRent(rent)
+        router.go(0);
     }
 
 </script>

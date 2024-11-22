@@ -1,6 +1,8 @@
 import ApiParams from "./ApiParams";
 import { Room } from "../interfaces/RoomManager";
 import { Rent } from "../interfaces/ReservationManager";
+import { PricingIncrease } from "../interfaces/PricingIncreaseManager";
+import { Equipment } from "../interfaces/EquipmentManager";
 
 export default class ApiParamsFactory {
     private authToken: string = '';
@@ -64,10 +66,34 @@ export default class ApiParamsFactory {
         ));
     }
 
+    public getOneAdditionalEquipment(id: number): ApiParams {
+        return this.authorize(new ApiParams(
+            this.baseUrl, '/api/additionalEquipment/' + id, 'GET'
+        ));
+    }
+
     public getAdditionalEquipmentForReservation(reservation_id: number): ApiParams {
         return this.authorize(new ApiParams(
             this.baseUrl, '/api/additionalEquipments/' + reservation_id, 'GET'
         ));
+    }
+
+    public saveAdditionalEquipment(equipment: Equipment, pricingIncrease: PricingIncrease): ApiParams {
+        let params = new ApiParams(this.baseUrl, '/api/additionalEquipment', 'POST');
+        params.addBodyField('name', equipment.name)
+        params.addBodyField('increase', String(pricingIncrease.increase))
+        params.addBodyField('increaseType', pricingIncrease.type)
+        
+        return this.authorize(params);
+    }
+
+    public updateAdditionalEquipment(equipment: Equipment, pricingIncrease: PricingIncrease): ApiParams {
+        let params = new ApiParams(this.baseUrl, '/api/additionalEquipment/' + equipment.id, 'PUT');
+        params.addBodyField('name', equipment.name)
+        params.addBodyField('increase', String(pricingIncrease.increase))
+        params.addBodyField('increaseType', pricingIncrease.type)
+        
+        return this.authorize(params);
     }
 
     public rentRoom(rent: Rent, price: number): ApiParams {
@@ -92,6 +118,40 @@ export default class ApiParamsFactory {
 
     public getMyRents(): ApiParams {
         return this.authorize(new ApiParams(this.baseUrl, '/api/myReservations', 'GET'));
+    }
+
+    public getEquipment(): ApiParams {
+        return this.authorize(new ApiParams(this.baseUrl, '/api/equipments', 'GET'))
+    }
+
+    public getEquipmentForRoom(id: number): ApiParams {
+        return this.authorize(new ApiParams(this.baseUrl, '/api/equipment/room/' + id, 'GET'))
+    }
+
+    public getOneEquipment(id: number): ApiParams {
+        return this.authorize(new ApiParams(this.baseUrl, '/api/equipment/' + id, 'GET'))
+    }
+
+    public getAdditionalPricingForEquipment(id: number): ApiParams {
+        return this.authorize(new ApiParams(this.baseUrl, '/api/equipment/pricingIncrease/' + id, 'GET'))
+    }
+
+    public saveEquipment(equipment: Equipment, pricingIncrease: PricingIncrease) {
+        let params = new ApiParams(this.baseUrl, '/api/equipment', 'POST');
+        params.addBodyField('name', equipment.name)
+        params.addBodyField('increase', String(pricingIncrease.increase))
+        params.addBodyField('increaseType', pricingIncrease.type)
+
+        return this.authorize(params);
+    }
+
+    public updateEquipment(equipment: Equipment, pricingIncrease: PricingIncrease) {
+        let params = new ApiParams(this.baseUrl, '/api/equipment/' + equipment.id, 'PUT');
+        params.addBodyField('name', equipment.name)
+        params.addBodyField('increase', String(pricingIncrease.increase))
+        params.addBodyField('increaseType', pricingIncrease.type)
+
+        return this.authorize(params);
     }
 
     public getPricingForAdditionalEquipment(id: number): ApiParams {

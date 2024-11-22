@@ -30,6 +30,11 @@ public class EquipmentController {
 		return repo.getEquipment(id);
 	}
 
+	@GetMapping("/equipment/pricingIncrease/{equipmentId}")
+	public PricingIncrease getPricingIncreaseForAdditionalEquipment(@PathVariable("equipmentId") int id) {
+		return repo.getPricingIncreaseForEquipment(id);
+	}
+
 	@PostMapping("/equipment/room/{roomId}")
 	public Equipment addEquipmentToRoom(
 		@PathVariable("roomId") int roomId,

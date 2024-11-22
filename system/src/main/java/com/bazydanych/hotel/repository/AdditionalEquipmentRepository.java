@@ -49,6 +49,7 @@ public class AdditionalEquipmentRepository {
     public Equipment getEquipment(int id) {
         try {
             ResultSet r = query.select("SELECT * FROM AdditionalEquipment WHERE id = " + id + ";");
+            r.next();
 
             return mapToEquipment(r);
         } catch (Exception e) {

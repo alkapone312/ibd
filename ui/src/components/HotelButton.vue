@@ -1,7 +1,6 @@
 <template>
     <div>
         <button 
-            @click="$emit('click')" 
             :class="{
                 'btn': true, 
                 'btn-filled': props.type == 'filled',

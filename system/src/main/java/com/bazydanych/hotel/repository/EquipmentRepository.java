@@ -70,6 +70,18 @@ public class EquipmentRepository {
         return query.query(queryString);
     }
 
+    public PricingIncrease getPricingIncreaseForEquipment(int id) {
+        try {
+            ResultSet r = query.select("SELECT * FROM  EquipmentPricingIncrease WHERE equipment_id = " + id + ";");
+            r.next();
+
+            return mapToPricingIncrease(r);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
     public boolean persist(Equipment equipment, PricingIncrease increase) {
         String queryString = "CALL insert_equipment(" +
             "\"" + equipment.getName() + "\", " +
@@ -93,6 +105,14 @@ public class EquipmentRepository {
         return new Equipment(
             r.getInt("id"),
             r.getString("name")
+        );
+    }
+
+    private PricingIncrease mapToPricingIncrease(ResultSet r) throws SQLException {
+        return new PricingIncrease(
+            r.getInt("equipment_id"),
+            r.getDouble("increase"),
+            r.getString("type")
         );
     }
 }

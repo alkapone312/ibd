@@ -8,8 +8,12 @@ import MyRents from '../views/MyRents.vue';
 import ManageRooms from '../views/admin/ManageRooms.vue';
 import ManageEquipments from '../views/admin/ManageEquipments.vue';
 import ManageAdditionalEquipments from '../views/admin/ManageAdditionalEquipments.vue';
-import ManageDiscounts from '../views/admin/ManageDiscounts.vue';
+import ManageEquipmentInRooms from '../views/admin/ManageEquipmentInRooms.vue';
+import ManageEquipmentInRoom from '../views/admin/ManageEquipmentInRoom.vue';
 import ManageHotel from '../views/admin/ManageHotel.vue';
+import AddEditRoom from '../views/admin/AddEditRoom.vue';
+import AddEditEquipment from '../views/admin/AddEditEquipment.vue';
+import AddEditAdditionalEquipment from '../views/admin/AddEditAdditionalEquipment.vue';
 import { RouteRecordRaw } from 'vue-router';
 
 export default [
@@ -17,9 +21,16 @@ export default [
     {path: '/login', component: Login},
     {path: '/register', component: Register},
     {path: '/manageRooms', component: ManageRooms},
+    {path: '/manageRooms/add', component: AddEditRoom},
+    {path: '/manageRooms/edit/:id', component: AddEditRoom},
     {path: '/manageEquipments', component: ManageEquipments},
+    {path: '/manageEquipments/add', component: AddEditEquipment},
+    {path: '/manageEquipments/edit/:id', component: AddEditEquipment},
+    {path: '/manageEquipmentInRoom', component: ManageEquipmentInRooms},
+    {path: '/manageEquipmentInRoom/room/:id', component: ManageEquipmentInRoom},
     {path: '/manageAdditionalEquipments', component: ManageAdditionalEquipments},
-    {path: '/manageDiscounts', component: ManageDiscounts},
+    {path: '/manageAdditionalEquipments/add', component: AddEditAdditionalEquipment},
+    {path: '/manageAdditionalEquipments/edit/:id', component: AddEditAdditionalEquipment},
     {path: '/manageHotel', component: ManageHotel},
     {path: '/offer', component: Offer},
     {path: '/room/:id', component: OfferRoom},

@@ -1,5 +1,5 @@
 <template>
-    <div id="loginForm">
+    <div class="container">
         <form @submit.prevent="onSubmit">
             <HotelInput label="Email" name="login" type="text" v-model="login"></HotelInput>
             <HotelInput label="Hasło" name="password" type="password" v-model="password"></HotelInput>
@@ -41,5 +41,19 @@ const onSubmit = () => {
 </script>
 
 <style scoped>
+    .container {
+        margin-top: 10%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
+    form {
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
 </style>
