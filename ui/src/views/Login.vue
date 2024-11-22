@@ -31,14 +31,12 @@ import HotelInput from "../components/HotelInput.vue";
 import HotelH3 from "../components/HotelH3.vue";
 import HotelButton from "../components/HotelButton.vue";
 import HotelLink from "../components/HotelLink.vue";
+import LoginInterface from "../interfaces/LoginInterface";
 import { inject } from 'vue';
-import { useRouter } from 'vue-router';
-
 
 let login = '';
 let password = '';
 
-const router = useRouter();
 const apiFacade = inject('login') as LoginInterface 
 
 const onSubmit = () => {

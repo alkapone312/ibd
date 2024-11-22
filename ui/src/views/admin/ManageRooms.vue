@@ -27,17 +27,21 @@
                 </tr>
             </tbody>
         </table>
+        <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
     </div>
 </template>
 
 <script lang="ts" setup>
-    import HotelH1 from '../../components/HotelH1.vue'
     import HotelLink from '../../components/HotelLink.vue'
+    import HotelButton from '../../components/HotelButton.vue'
     import RoomManager from '../../interfaces/RoomManager'
+    import { Room } from '../../interfaces/RoomManager'
     import { inject, ref } from 'vue'
+    import { useRouter } from 'vue-router'
 
+    const router = useRouter();
     const roomManager = inject('roomManager') as RoomManager;
-    let rooms = ref([]);
+    let rooms = ref([] as Room[]);
     
     const a = async () => {
         rooms.value = await roomManager.getRooms();

@@ -13,9 +13,9 @@
             <tbody>
                 <tr v-for="rent in reservations" scope="row">
                     <th>{{ rent.id }}</th>
-                    <td>{{ rent.checkInDate }}</td>
-                    <td>{{ rent.checkOutDate }}</td>
-                    <td>{{ rent.room.name }}</td>
+                    <td>{{ rent.checkInDate! }}</td>
+                    <td>{{ rent.checkOutDate! }}</td>
+                    <td>{{ rent.room!.name }}</td>
                     <td>
                         <HotelButton type="text"
                             @click="cancelReservation(rent)"
@@ -31,18 +31,19 @@
     import {ref, inject} from 'vue';
     import {useRouter} from 'vue-router';
     import HotelButton from '../components/HotelButton.vue';
+    import ReservationManager from '../interfaces/ReservationManager';
+    import { Rent } from '../interfaces/ReservationManager';
 
     const router = useRouter();
     const rentManager = inject('rentManager') as ReservationManager;
-    const roomManager = inject('roomManager') as ReservationManager;
-    let reservations = ref([]);
+    let reservations = ref([] as Rent[]);
 
     const a = async () => {
         reservations.value = await rentManager.getMyRents();
     }
     a();
 
-    const cancelReservation = async (rent) => {
+    const cancelReservation = async (rent: Rent) => {
         await rentManager.cancelRent(rent)
         router.go(0);
     }

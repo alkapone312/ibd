@@ -120,6 +120,17 @@ export default class ApiParamsFactory {
         return this.authorize(new ApiParams(this.baseUrl, '/api/myReservations', 'GET'));
     }
 
+    public addEquipmentToRoom(equipment_id: number, room_id: number) {
+        let params = new ApiParams(this.baseUrl, '/api/equipment/room/' + room_id, 'POST')
+        params.addBodyField('equipmentId', String(equipment_id));
+        
+        return this.authorize(params);
+    }
+
+    public deleteEquipmentFromRoom(room_id: number) {
+        return this.authorize(new ApiParams(this.baseUrl, '/api/equipment/room/' + room_id, 'DELETE'))
+    }
+
     public getEquipment(): ApiParams {
         return this.authorize(new ApiParams(this.baseUrl, '/api/equipments', 'GET'))
     }

@@ -16,7 +16,7 @@
 import { defineProps } from 'vue';
 
 const props = defineProps<{
-    type: string | null
+    type?: string | null
 }>()
 
 </script>

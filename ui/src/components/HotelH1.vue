@@ -2,7 +2,7 @@
     <h1><slot></slot></h1>
 </template>
 
-<script>
+<script lang="ts" setup>
 </script>
 
 <style scoped>

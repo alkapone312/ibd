@@ -1,9 +1,15 @@
+import { Room } from "./RoomManager";
+
 export type Rent = {
     id: number,
-    client_id: number,
-    room_id: number,
+    client?: any,
+    room?: Room,
+    room_id?: number,
+    client_id?: number,
     checkin_date: string,
     checkout_date: string
+    checkInDate?: string,
+    checkOutDate?: string
 };
 
 export default interface ReservationManager {

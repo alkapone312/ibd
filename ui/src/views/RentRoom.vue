@@ -48,29 +48,45 @@
     import HotelButton from "../components/HotelButton.vue";
     import HotelH2 from "../components/HotelH2.vue";
     import AdditionalEquipmentManager from '../interfaces/AdditionalEquipmentManager';
-    import EquipmentManager from '../interfaces/EquipmentManager';
+    import EquipmentManager from '../interfaces/EquipmentManager';  
+    import { Room } from '../interfaces/RoomManager';
+    import RoomManager from '../interfaces/RoomManager';
     import ReservationManager from '../interfaces/ReservationManager';
 
     
     const router = useRouter();
     const route = useRoute();
-    const roomManager = inject('roomManager') as AdditionalEquipmentManager;
+    const roomManager = inject('roomManager') as RoomManager;
     const additionalEquipmentManager = inject('additionalEquipmentManager') as AdditionalEquipmentManager;
     const equipmentManager = inject('equipmentManager') as EquipmentManager;
     const rentManager = inject('rentManager') as ReservationManager;
-    let room = {};
-    let additionalEquipment = ref([]);
-    let equipments = ref([]);
-    let additionalEquipmentCheckbox = {};
+    let room = {} as Room;
+    let additionalEquipment = ref([] as any);
+    let equipments = ref([] as any);
+    let additionalEquipmentCheckbox = {} as any;
     let price = ref(0);
     let rent: Rent = {
         id: 0,
         client_id: 0,
         room_id: 0,
-        checkin_date: new Date(),
-        checkout_date: new Date()
+        checkin_date: '',
+        checkout_date: ''
     };
+
+    const recalculatePrice = () => {
+        price.value = room.basePrice * Math.max(calculateDaysDifference(rent.checkin_date, rent.checkout_date), 1);
+        equipments.value.forEach((eq: any) =>{
+            price.value += Math.ceil(price.value * eq.increase / 100);
+        });
+        Object.entries(additionalEquipmentCheckbox).forEach((checkbox) => {
+            if(checkbox[1] == true) {
+                price.value += Math.ceil(price.value * additionalEquipment.value[parseInt(checkbox[0])].increase / 100);
+            }
+        })
+    }
+
     (async () => {
+        //@ts-ignore
         room = await roomManager.getRoom(route.params.id);
         equipments.value = await equipmentManager.getEquipmentForRoom(room.id);
         for(let i = 0 ; i < equipments.value.length; i++) {
@@ -83,12 +99,12 @@
 
         rent.room_id = room.id;
         let aeq = await additionalEquipmentManager.getAdditionalEquipment();
-        let aeq2 = {}
+        let aeq2 = {} as any;
         for(let i = 0 ; i < aeq.length; i++) {
             aeq2[aeq[i].id] = {...aeq[i], ...(await additionalEquipmentManager.getPricingForAdditionalEquipment(aeq[i].id))}
         }
         additionalEquipment.value = aeq2;
-        Object.values(aeq2).forEach(element => {
+        Object.values(aeq2).forEach((element: any) => {
             additionalEquipmentCheckbox[element.id] = false;
         });
 
@@ -99,19 +115,10 @@
         rentManager.rentRoom(rent, price.value);
         router.push("/offer");
     }
+    //@ts-ignore
     const calculateDaysDifference = (startDate, endDate) => Math.floor((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24));
 
-    const recalculatePrice = () => {
-        price.value = room.basePrice * Math.max(calculateDaysDifference(rent.checkin_date, rent.checkout_date), 1);
-        equipments.value.forEach((eq) =>{
-            price.value += Math.ceil(price.value * eq.increase / 100);
-        });
-        Object.entries(additionalEquipmentCheckbox).forEach((checkbox) => {
-            if(checkbox[1] == true) {
-                price.value += Math.ceil(price.value * additionalEquipment.value[checkbox[0]].increase / 100);
-            }
-        })
-    }
+    
 
 </script>
 

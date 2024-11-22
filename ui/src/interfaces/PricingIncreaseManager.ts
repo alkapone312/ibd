@@ -1,5 +1,4 @@
 export type PricingIncrease = {
-    id: number,
     increase: number,
     type: string
 };

@@ -16,6 +16,12 @@
                 <li>Nr pokoju: {{ room.roomNumber }}</li>
                 <li>Cena bazowa: {{ room.basePrice }} zł</li>
             </ul>
+            <div style="padding: 20px 0;" v-if="equipments.length !== 0">
+                <HotelH2>Wyposażenie pokoju:</HotelH2>
+                <ul>
+                    <li v-for="eq in equipments">{{ eq.name + ' +' + eq.increase + '%'}}</li>
+                </ul>
+            </div>
             <HotelLink v-if="isLogged" type="text" :to="'/rent/' + room.id">Wynajmij</HotelLink>
             <HotelH3 v-else>Zaloguj się lub zarejestruj aby wynająć pokój</HotelH3>
         </div>
@@ -32,18 +38,34 @@
     import HotelLink from '../components/HotelLink.vue'
     import HotelP from '../components/HotelP.vue'
     import RoomManager from '../interfaces/RoomManager'
+    import EquipmentManager from '../interfaces/EquipmentManager'
+    import LoginInterface from '../interfaces/LoginInterface'
+    import { Room } from '../interfaces/RoomManager'
 
     const roomManager = inject('roomManager') as RoomManager;
     const login = inject('login') as LoginInterface;
+    const equipmentManager = inject('equipmentManager') as EquipmentManager;
+    let equipments = ref([] as any);
     let isLogged = ref(login.isLogged());
-    login.onLoginChange(isLoggedNew => {
+    login.onLoginChange((isLoggedNew: boolean) => {
         isLogged.value = isLoggedNew;
     })
     const route = useRoute();
-    let room = ref({});
+    let room = ref({} as Room);
     (async () => {
+        //@ts-ignore
         room.value = await roomManager.getRoom(route.params.id)
+        console.log(room.value)
+        equipments.value = await equipmentManager.getEquipmentForRoom(room.value.id)
+        for(let i = 0 ; i < equipments.value.length; i++) {
+            equipments.value[i] = {
+                ...equipments.value[i], 
+                ...(await equipmentManager.getAdditionalPricingForEquipment(equipments.value[i].id))
+            }
+            equipments.value[i].increaseType = equipments.value[i].type;
+        }
     })()
+    
 </script>
 
 <style scoped>

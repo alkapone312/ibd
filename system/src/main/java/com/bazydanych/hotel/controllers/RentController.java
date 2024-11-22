@@ -30,6 +30,10 @@ public class RentController {
         @RequestParam("price") double price,
         @RequestHeader("Authorization") String token
     ) {
+        if(dateFrom.before(new Date()) || dateTo.before(dateFrom)) {
+            return "{\"error\": \"Błąd\", \"code\": 403}";
+        }
+
         Client client = loginService.getClient(token);
 
         if(client == null) {

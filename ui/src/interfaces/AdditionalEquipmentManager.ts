@@ -7,6 +7,6 @@ export default interface AdditionalEquipmentManager {
     getOneAdditionalEquipment(id: number): Promise<Equipment>;
     getAdditionalEquipmentForReservation(reservation_id: number): Promise<Equipment[]>
     getPricingForAdditionalEquipment(id: number): Promise<PricingIncrease>
-    saveAdditionalEquipment(equipment: Equipment): Promise<void>
-    updateAdditionalEquipment(equipment: Equipment): Promise<void>
+    saveAdditionalEquipment(equipment: Equipment, pricingIncrease: PricingIncrease): Promise<void>
+    updateAdditionalEquipment(equipment: Equipment, pricingIncrease: PricingIncrease): Promise<void>
 }

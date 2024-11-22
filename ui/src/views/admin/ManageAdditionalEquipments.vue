@@ -1,3 +1,5 @@
+
+import { useRouter } from 'vue-router';
 <template>
     <div class="container">
         <HotelLink type="text" to="/manageAdditionalEquipments/add">Dodaj dodatkowy ekwipunek</HotelLink>
@@ -21,17 +23,20 @@
                 </tr>
             </tbody>
         </table>
+        <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
     </div>
 </template>
 
 <script lang="ts" setup>
-    import HotelH1 from '../../components/HotelH1.vue'
     import HotelLink from '../../components/HotelLink.vue'
-    import EquipmentManager from '../../interfaces/EquipmentManager'
+    import HotelButton from '../../components/HotelButton.vue'
+    import AdditionalEquipmentManager from '../../interfaces/AdditionalEquipmentManager'
     import { inject, ref } from 'vue'
+    import { useRouter } from 'vue-router'
 
-    const equipmentManager = inject('additionalEquipmentManager') as EquipmentManager;
-    let equipments = ref([]);
+    const router = useRouter();
+    const equipmentManager = inject('additionalEquipmentManager') as AdditionalEquipmentManager;
+    let equipments = ref([] as any);
     
     const a = async () => {
         equipments.value = await equipmentManager.getAdditionalEquipment();

@@ -16,9 +16,10 @@
     import HotelLink from '../components/HotelLink.vue'
     import HotelH1 from '../components/HotelH1.vue'
     import RoomManager from '../interfaces/RoomManager'
+    import { Room } from '../interfaces/RoomManager'
 
     const roomManager = inject('roomManager') as RoomManager;
-    let rooms = ref([]);
+    let rooms = ref([] as Room[]);
 
     (async () => {
         rooms.value = await roomManager.getRooms();
@@ -27,7 +28,7 @@
 
 <style scoped>
     #hotelContainer {
-        width: 100%;
+        width: calc(100% - 50px);
         margin: 50px;
         display: flex;
         flex-direction: column;

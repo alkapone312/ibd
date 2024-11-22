@@ -1,7 +1,7 @@
 <template>
     <div class="inputGroup">
         <label class="label">{{ props.label }}</label>
-        <input :step="props.step" :name="props.name" :type="props.type" v-model="model" class="input">
+        <input :step="props.step ?? undefined" :name="props.name" :type="props.type" v-model="model" class="input">
     </div>
 </template>
 
@@ -9,10 +9,10 @@
 import { defineProps, defineModel } from 'vue';
 
 const props = defineProps<{
-    type: string,
-    name: string,
-    label: string
-    step: string | null
+    type?: string,
+    name?: string,
+    label?: string
+    step?: string | null
 }>();
 
 const model = defineModel();

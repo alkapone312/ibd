@@ -9,6 +9,7 @@
             <HotelInput label="Numer pokoju" name="roomNumber" type="number" v-model="room.roomNumber"></HotelInput>
             <HotelInput step=".01" label="Cena bazowa" name="basePrice" type="number" v-model="room.basePrice"></HotelInput>
             <HotelButton type="text">Zapisz</HotelButton>
+            <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
         </form>
     </div>
 </template>
@@ -44,6 +45,7 @@ if(route.params.id && typeof route.params.id == 'string') {
         room.value.description = r.description;
         room.value.basePrice = r.basePrice;
         room.value.roomNumber = r.roomNumber;
+        room.value.capacity = r.capacity;
         room.value.roomSize = r.roomSize;
     }
     a();

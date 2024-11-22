@@ -1,15 +1,12 @@
 import AdditionalEquipmentManager from "../interfaces/AdditionalEquipmentManager";
-import DiscountManager from "../interfaces/DiscountManager";
 import EquipmentManager from "../interfaces/EquipmentManager";
 import LoginInterface from "../interfaces/LoginInterface";
-import PricingIncreaseManager from "../interfaces/PricingIncreaseManager";
 import RoomManager from "../interfaces/RoomManager";
 import { Room } from "../interfaces/RoomManager"
 import ApiParamsFactory from "./ApiParamsFactory";
 import ApiService from "./ApiService";
 import { PricingIncrease } from "../interfaces/PricingIncreaseManager";
 import { Equipment } from "../interfaces/EquipmentManager";
-import { Discount } from "../interfaces/DiscountManager";
 import ReservationManager from "../interfaces/ReservationManager";
 import { Rent } from "../interfaces/ReservationManager";
 import NotificationService from "./NotificationService";
@@ -19,8 +16,6 @@ LoginInterface,
 RoomManager,
 EquipmentManager,
 AdditionalEquipmentManager,
-PricingIncreaseManager,
-DiscountManager,
 ReservationManager {
     private apiService;
     private apiParamsFactory;
@@ -54,10 +49,10 @@ ReservationManager {
             NotificationService.pushNotification({"type": "error", "message": "Coś poszło nie tak!"});
             return;
         }
+        this.apiParamsFactory.setAuthToken(object.token);
         localStorage.setItem('authToken', object.token);
-        NotificationService.pushNotification({"type": "success", "message": "Pomyślnie zalogowano!"});
         this.invokeCallback(true);
-
+        NotificationService.pushNotification({"type": "success", "message": "Pomyślnie zalogowano!"});
     }
 
     public logout(): void {
@@ -76,6 +71,8 @@ ReservationManager {
         
         if(!object.status || object.status != "ok") {
             NotificationService.pushNotification({"type": "error", "message": "Coś poszło nie tak!"});
+        } else {
+            NotificationService.pushNotification({"type": "success", "message": "Pomyślnie zarejestrowano!"});
         }
     }
 
@@ -121,7 +118,7 @@ ReservationManager {
         );
     }
 
-    public async getOneAdditionalEquipment(id: number): Promise<Equipment[]> {
+    public async getOneAdditionalEquipment(id: number): Promise<Equipment> {
         return await this.apiService.request(
             this.apiParamsFactory.getOneAdditionalEquipment(id)
         );
@@ -129,7 +126,7 @@ ReservationManager {
 
     public async getAdditionalEquipmentForReservation(reservation_id: number): Promise<Equipment[]> {
         return await this.apiService.request(
-            this.apiParamsFactory.getAdditionalEquipment()
+            this.apiParamsFactory.getAdditionalEquipmentForReservation(reservation_id)
         );
     }
 
@@ -159,26 +156,26 @@ ReservationManager {
         }
     }
 
-    public async getDiscountForEquipment(id: number): Promise<Discount> {
-        throw new Error("NOT IMPLEMENTED")
-    }
-
-    public async getDiscountForAdditionalEquipment(id: number): Promise<Discount> {
-        throw new Error("NOT IMPLEMENTED")
-    }
-
-    public async saveDiscount(increase: Discount): Promise<void> {
-        throw new Error("NOT IMPLEMENTED")
-    }
-    
-    public async updateDiscount(increase: Discount): Promise<void> {
-        throw new Error("NOT IMPLEMENTED")
-    }
-
     public async getEquipmentForRoom(id: number): Promise<Equipment[]> {
         return await this.apiService.request(
             this.apiParamsFactory.getEquipmentForRoom(id)
         )
+    }
+
+    public async addEquipmentToRoom(equipment: Equipment, room_id: number): Promise<void> {
+        if((await this.apiService.request(
+            this.apiParamsFactory.addEquipmentToRoom(equipment.id, room_id)
+        )).id == equipment.id) {
+            NotificationService.pushNotification({"type": "success", "message": "Pomyślnie edytowano ekwipunek!"})
+        } else {
+            NotificationService.pushNotification({"type": "error", "message": "Coś poszło nie tak!"})
+        }
+    }
+
+    public async deleteEquipmentFromRoom(room_id: number): Promise<Equipment[]> {
+        return await this.apiService.request(
+            this.apiParamsFactory.deleteEquipmentFromRoom(room_id)
+        );
     }
     
     public async getAdditionalPricingForEquipment(id: number): Promise<PricingIncrease> {
@@ -205,22 +202,6 @@ ReservationManager {
         } else {
             NotificationService.pushNotification({"type": "error", "message": "Coś poszło nie tak!"})
         }
-    }
-
-    public async getPricingIncreaseForEquipment(id: number): Promise<PricingIncrease> {
-        throw new Error("NOT IMPLEMENTED")
-    }
-    
-    public async getPricingIncreaseForAdditionalEquipment(id: number): Promise<PricingIncrease> {
-        throw new Error("NOT IMPLEMENTED")
-    }
-    
-    public async savePricingIncrease(increase: PricingIncrease): Promise<void> {
-        throw new Error("NOT IMPLEMENTED")
-    }
-    
-    public async updatePricingIncrease(increase: PricingIncrease): Promise<void> {
-        throw new Error("NOT IMPLEMENTED")
     }
 
     public async getEquipment(): Promise<Equipment[]> {

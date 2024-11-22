@@ -6,6 +6,7 @@
             <HotelInput label="Wzrost ceny" name="description" type="number" v-model="equipment.increase"></HotelInput>
             <HotelInput label="Typ wzrostu" name="equipmentSize" type="text" v-model="equipment.increaseType"></HotelInput>
             <HotelButton type="text">Zapisz</HotelButton>
+            <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
         </form>
     </div>
 </template>

@@ -15,7 +15,7 @@
 <script setup lang="ts">
     let props = defineProps<{
         to: string
-        type: string
+        type?: string
     }>();
 </script>
 

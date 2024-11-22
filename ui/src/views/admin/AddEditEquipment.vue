@@ -6,6 +6,7 @@
             <HotelInput label="Wzrost ceny" name="description" type="number" v-model="equipment.increase"></HotelInput>
             <HotelInput label="Typ wzrostu" name="equipmentSize" type="text" v-model="equipment.increaseType"></HotelInput>
             <HotelButton type="text">Zapisz</HotelButton>
+            <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
         </form>
     </div>
 </template>
@@ -14,7 +15,6 @@
 import HotelInput from "../../components/HotelInput.vue";
 import HotelButton from "../../components/HotelButton.vue";
 import HotelH3 from "../../components/HotelH3.vue";
-import { Equipment } from '../../interfaces/EquipmentManager';
 import EquipmentManager from '../../interfaces/EquipmentManager';
 import {useRoute, useRouter} from 'vue-router';
 import { inject, ref } from 'vue'

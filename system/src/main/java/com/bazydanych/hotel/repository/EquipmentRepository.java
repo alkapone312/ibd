@@ -65,7 +65,7 @@ public class EquipmentRepository {
     }
 
     public boolean deleteEquipmentFromRoom(int id) {
-        String queryString = "DELETE FROM EquipmentInRoom WHERE id = " + id + ";";
+        String queryString = "DELETE FROM EquipmentInRoom WHERE room_id = " + id + ";";
 
         return query.query(queryString);
     }

@@ -43,6 +43,11 @@ public class EquipmentController {
 		return repo.addEquipmentToRoom(roomId, equipmentId) ? repo.getEquipment(equipmentId) : null;
 	}
 
+	@DeleteMapping("/equipment/room/{roomId}")
+	public boolean deleteEquipmentFromRoom(@PathVariable("roomId") int id) {
+		return repo.deleteEquipmentFromRoom(id);
+	}
+
 	@PostMapping(value = "/equipment", produces = "application/json")
 	public Equipment insertEquipment(
 		@RequestParam("name") String name,

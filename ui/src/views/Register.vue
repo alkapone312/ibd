@@ -23,6 +23,7 @@ import HotelInput from "../components/HotelInput.vue";
 import HotelButton from "../components/HotelButton.vue";
 import HotelH3 from "../components/HotelH3.vue";
 import HotelLink from "../components/HotelLink.vue";
+import LoginInterface from "../interfaces/LoginInterface";
 
 import { inject } from 'vue'
 
