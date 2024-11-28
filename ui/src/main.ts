@@ -1,5 +1,5 @@
 import { createApp } from 'vue/dist/vue.esm-bundler'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import './style.css'
 import App from './App.vue'
 import ApiFacade from './services/ApiFacade';
@@ -13,7 +13,7 @@ console.log(routes)
 // keep it simple for now.
 const router = createRouter({
     // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes, // short for `routes: routes`
 })
 

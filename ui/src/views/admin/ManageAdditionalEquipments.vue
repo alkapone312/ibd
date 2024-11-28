@@ -1,5 +1,4 @@
 
-import { useRouter } from 'vue-router';
 <template>
     <div class="container">
         <HotelLink type="text" to="/manageAdditionalEquipments/add">Dodaj dodatkowy ekwipunek</HotelLink>

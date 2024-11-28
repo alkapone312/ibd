@@ -18,8 +18,6 @@ export default class ApiService {
             body: params.getMethod() !== 'GET' ? formdata : null,
             headers
         };
-        
-        console.log(requestOptions)
 
         let response = await fetch(params.getBaseUrl() + params.getEndpoint(), requestOptions);
         let json = await response.json();

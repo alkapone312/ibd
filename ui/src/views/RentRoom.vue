@@ -74,7 +74,12 @@
     };
 
     const recalculatePrice = () => {
-        price.value = room.basePrice * Math.max(calculateDaysDifference(rent.checkin_date, rent.checkout_date), 1);
+        let daysDifference = calculateDaysDifference(rent.checkin_date, rent.checkout_date);
+        if(typeof daysDifference != "number" || isNaN(daysDifference)) {
+            daysDifference = 1
+        }
+        price.value = room.basePrice * daysDifference;
+
         equipments.value.forEach((eq: any) =>{
             price.value += Math.ceil(price.value * eq.increase / 100);
         });
