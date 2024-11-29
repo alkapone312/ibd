@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <HotelLink type="text" to="/manageEquipments/add">Dodaj ekwipunek</HotelLink>
         <form @submit.prevent="onSubmit()">
             <table class="table">
                 <thead>
@@ -22,8 +21,12 @@
                     </tr>
                 </tbody>
             </table>
+
+        <div style="display: flex; width: 100%; justify-content: space-between;">
             <HotelButton type="text">Zapisz</HotelButton>
             <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
+            <HotelLink type="text" to="/manageEquipments/add">Dodaj ekwipunek</HotelLink>
+        </div>
         </form>
     </div>
 </template>

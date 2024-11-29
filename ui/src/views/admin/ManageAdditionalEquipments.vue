@@ -1,7 +1,6 @@
 
 <template>
     <div class="container">
-        <HotelLink type="text" to="/manageAdditionalEquipments/add">Dodaj dodatkowy ekwipunek</HotelLink>
         <table class="table">
             <thead>
                 <tr>
@@ -22,7 +21,10 @@
                 </tr>
             </tbody>
         </table>
-        <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
+        <div style="display: flex; width: 100%; justify-content: space-between;">
+            <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
+            <HotelLink type="text" to="/manageAdditionalEquipments/add">Dodaj dodatkowy ekwipunek</HotelLink>
+        </div>
     </div>
 </template>
 

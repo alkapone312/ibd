@@ -18,7 +18,6 @@ public class ClientController {
 	@GetMapping("/clients")
 	public List<Client> getClients() {
 		var repo = new ClientRepository(query);
-
 		return repo.getClients();
 	}
 

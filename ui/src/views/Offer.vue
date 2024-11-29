@@ -3,9 +3,9 @@
     <div id="hotelContainer">
     <HotelH1>Oferta</HotelH1>
     <div id="hotelOffer">
-        <HotelLink v-for="room in rooms" :key="room.id" :to="'/room/' + room.id">
+        <RouterLink v-for="room in rooms" :key="room.id" :to="'/room/' + room.id">
             <HotelRoomTile  :room="room"></HotelRoomTile>
-        </HotelLink>
+        </RouterLink>
     </div>
     </div>
 </template>
@@ -13,7 +13,6 @@
 <script setup lang="ts">
     import { inject, ref } from 'vue';
     import HotelRoomTile from '../components/HotelRoomTile.vue'
-    import HotelLink from '../components/HotelLink.vue'
     import HotelH1 from '../components/HotelH1.vue'
     import RoomManager from '../interfaces/RoomManager'
     import { Room } from '../interfaces/RoomManager'

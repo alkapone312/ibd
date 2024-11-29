@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router';
 import { useRouter } from 'vue-router';
 <template>
     <div class="container">
-        <HotelLink type="text" to="/manageEquipments/add">Dodaj ekwipunek</HotelLink>
         <table class="table">
             <thead>
                 <tr>
@@ -25,7 +24,12 @@ import { useRouter } from 'vue-router';
                 </tr>
             </tbody>
         </table>
+
+        <div style="display: flex; width: 100%; justify-content: space-between;">
         <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
+        <HotelLink type="text" to="/manageEquipments/add">Dodaj ekwipunek</HotelLink>
+        </div>
+    
     </div>
 </template>
 

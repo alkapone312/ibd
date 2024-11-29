@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <HotelLink type="text" to="/manageRooms/add">Dodaj pokój</HotelLink>
         <table class="table">
             <thead>
                 <tr>
@@ -27,7 +26,11 @@
                 </tr>
             </tbody>
         </table>
+
+        <div style="display: flex; width: 100%; justify-content: space-between;">
         <HotelButton @click.prevent="() => {router.go(-1)}" type="text">Cofnij</HotelButton>
+        <HotelLink type="text" to="/manageRooms/add">Dodaj pokój</HotelLink>
+        </div>
     </div>
 </template>
 

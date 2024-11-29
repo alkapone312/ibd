@@ -81,3 +81,7 @@ button {
   outline: none;
   border: none;
 }
+
+.header-of-page {
+	padding: 20px;
+}

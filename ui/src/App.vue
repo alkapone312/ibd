@@ -12,35 +12,35 @@
 	<nav>
 		<HotelH2>Hotel.com</HotelH2>
 		<HotelLink 
-			type="filled" 
+			type="plain" 
 			to="/manageHotel" 
 			v-if="isLogged && apiFacade.hasPrivilege('ADMIN')"
 			>Zarządzaj hotelem</HotelLink>
 		<HotelLink
-			type="filled" 
+			type="plain" 
 			to="/"
 			>Strona główna</HotelLink>
 		<HotelLink 
-			type="filled" 
+			type="plain" 
 			to="/offer" 
 			>Oferta</HotelLink>
 		<HotelLink 
-			type="filled" 
+			type="plain" 
 			to="/myRents" 
 			v-if="isLogged"
 			>Moje rezerwacje</HotelLink>
 		<HotelButton 
-			type="filled" 
+			type="plain" 
 			v-if="isLogged" 
 			@click="() => {apiFacade.logout()}"
 			>Wyloguj</HotelButton>
 		<HotelLink 
-			type="filled" 
+			type="plain" 
 			to="/login" 
 			v-if="!isLogged"
 			>Zaloguj</HotelLink>
 		<HotelLink 
-			type="filled" 
+			type="plain" 
 			to="/register" 
 			v-if="!isLogged"
 			>Zarejestruj</HotelLink>
